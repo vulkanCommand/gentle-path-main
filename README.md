@@ -514,7 +514,7 @@ protocol_item_acks:
 
 ### Running Frontend
 ```bash
-cd frontend
+cd /project_root
 npm install
 npm run dev
 ```
