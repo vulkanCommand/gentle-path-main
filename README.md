@@ -48,52 +48,237 @@ This document explains:
 
 ```text
 gentle-path-main/
-│
+├── .env
+├── .env.local
 ├── backend/
-│   ├── main.go                 # App entry point
-│   ├── go.mod / go.sum         # Go dependencies
-│   │
-│   ├── auth/
-│   │   ├── firebase.go         # Firebase Admin initialization
-│   │   └── middleware.go       # Auth middleware
-│   │
-│   ├── routes/
-│   │   ├── checkins.go         # User daily check-ins
-│   │   ├── admin_checkins.go   # Admin views
-│   │   ├── protocols.go        # Healing protocols
-│   │   ├── protocol_acks.go    # Day / item acknowledgements
-│   │   └── uploads.go          # Healing sheet uploads
-│   │
-│   ├── db/
-│   │   ├── db.go               # DB connection
-│   │   └── migrations.sql      # Schema
-│   │
-│   ├── storage/
-│   │   └── upload_store.go     # File storage abstraction
-│   │
-│   ├── Dockerfile              # Cloud Run build
-│   └── env.example             # Environment variables
-│
-├── frontend/
+│   ├── .env
+│   ├── .gcloudignore
+│   ├── admin_checkins_routes.go
+│   ├── admin_user_invite_routes.go
+│   ├── admin_users_routes.go
+│   ├── admin_users_types.go
+│   ├── chat_routes.go
+│   ├── checkins_routes.go
+│   ├── content_routes.go
+│   ├── db.go
+│   ├── Dockerfile
+│   ├── env.yaml
+│   ├── errors.go
+│   ├── firebase-admin.example.json
+│   ├── firebase-admin.json
+│   ├── firebase.go
+│   ├── gentle-path-backend.exe
+│   ├── go.mod
+│   ├── go.sum
+│   ├── healing_sheets_routes.go
+│   ├── main.go
+│   ├── messages_routes.go
+│   ├── middleware_auth.go
+│   ├── protocol_ack_routes.go
+│   ├── protocol_item_ack_routes.go
+│   ├── protocols_routes.go
+│   ├── schema.sql
+│   ├── uploads/
+│   │   └── healing-sheets/
+│   │       ├── 04daabf7-649e-4717-a191-0a823a10444e.pdf
+│   │       ├── 0d1a526e-7e04-440e-bc76-528247165e73.tsx
+│   │       ├── 1a0cdf7a-46d1-46bd-812d-bf5b234b54d6.pdf
+│   │       ├── 259b4c61-60e6-4071-9cb4-0aeee76ba71f.pdf
+│   │       ├── 872dc238-2856-418f-880e-c17905ccddf5.pdf
+│   │       └── 8eb3b330-9d4f-4a1e-8009-88f415ac3eca.pdf
+│   ├── uploads_store.go
+│   ├── user_lookup.go
+│   └── user_repo.go
+├── bun.lockb
+├── capacitor.config.ts
+├── components.json
+├── dist/
+│   ├── assets/
+│   │   ├── index-BecBp2s4.css
+│   │   └── index-BIMfehOR.js
+│   ├── favicon.ico
 │   ├── index.html
-│   ├── src/
-│   │   ├── pages/
-│   │   │   ├── Login.tsx
-│   │   │   ├── Dashboard.tsx
-│   │   │   ├── Protocol.tsx
-│   │   │   └── Admin.tsx
-│   │   │
-│   │   ├── lib/
-│   │   │   └── api.ts          # Backend API calls
-│   │   │
-│   │   └── firebase.ts         # Firebase config
-│   │
-│   ├── vite.config.ts
-│   └── package.json
-│
-└── README.md
-```
-
+│   ├── placeholder.svg
+│   └── robots.txt
+├── eslint.config.js
+├── index.html
+├── ios/
+│   ├── .gitignore
+│   ├── App/
+│   │   ├── App/
+│   │   │   ├── AppDelegate.swift
+│   │   │   ├── Assets.xcassets/
+│   │   │   │   ├── AccentColor.colorset/
+│   │   │   │   │   └── Contents.json
+│   │   │   │   ├── AppIcon.appiconset/
+│   │   │   │   │   └── Contents.json
+│   │   │   │   └── Contents.json
+│   │   │   ├── Base.lproj/
+│   │   │   │   ├── LaunchScreen.storyboard
+│   │   │   │   └── Main.storyboard
+│   │   │   ├── Info.plist
+│   │   │   └── ViewController.swift
+│   │   ├── App.xcodeproj/
+│   │   │   ├── project.pbxproj
+│   │   │   ├── project.xcworkspace/
+│   │   │   │   ├── contents.xcworkspacedata
+│   │   │   │   └── xcshareddata/
+│   │   │   │       └── IDEWorkspaceChecks.plist
+│   │   │   └── xcshareddata/
+│   │   │       └── xcschemes/
+│   │   │           └── App.xcscheme
+│   │   ├── AppTests/
+│   │   │   ├── AppTests.swift
+│   │   │   └── Info.plist
+│   │   └── AppUITests/
+│   │       ├── AppUITests.swift
+│   │       └── Info.plist
+│   ├── Podfile
+│   ├── Podfile.lock
+│   └── Pods/
+│       ├── Headers/
+│       │   ├── Private/
+│       │   │   ├── Capacitor/
+│       │   │   │   ├── CAPBridgeViewController.h
+│       │   │   │   ├── CAPConfig.h
+│       │   │   │   ├── CAPInstanceConfiguration.h
+│       │   │   │   ├── CAPLog.h
+│       │   │   │   ├── CAPPluginCall.h
+│       │   │   │   ├── CAPPlugin.h
+│       │   │   │   ├── CAPPluginMethod.h
+│       │   │   │   ├── CAPPluginResult.h
+│       │   │   │   ├── CAPPlugin+Load.h
+│       │   │   │   ├── CAPPlugin+JSON.h
+│       │   │   │   ├── CAPPlugin+Tools.h
+│       │   │   │   ├── CAPPlugin+CAPBridgedPlugin.h
+│       │   │   │   └── CAPDefinitions.h
+│       │   │   └── CapacitorCordova/
+│       │   │       ├── CAPCordovaPlugin.h
+│       │   │       ├── CAPCordovaViewController.h
+│       │   │       └── CapacitorCordova.h
+│       │   └── Public/
+│       │       ├── Capacitor/
+│       │       │   ├── Capacitor.h
+│       │       │   └── CAPBridgedPlugin.h
+│       │       └── CapacitorCordova/
+│       │           └── CapacitorCordova.h
+│       ├── Local Podspecs/
+│       │   ├── Capacitor.podspec.json
+│       │   ├── CapacitorApp.podspec.json
+│       │   ├── CapacitorCordova.podspec.json
+│       │   └── CapacitorDevice.podspec.json
+│       ├── Manifest.lock
+│       ├── Pods.xcodeproj/
+│       │   ├── project.pbxproj
+│       │   └── project.xcworkspace/
+│       │       ├── contents.xcworkspacedata
+│       │       └── xcshareddata/
+│       │           └── IDEWorkspaceChecks.plist
+│       ├── Target Support Files/
+│       │   ├── Capacitor/
+│       │   │   ├── Capacitor-Info.plist
+│       │   │   ├── Capacitor-dummy.m
+│       │   │   ├── Capacitor-prefix.pch
+│       │   │   ├── Capacitor-umbrella.h
+│       │   │   ├── Capacitor.modulemap
+│       │   │   └── Capacitor.xcconfig
+│       │   ├── CapacitorApp/
+│       │   │   ├── CapacitorApp-Info.plist
+│       │   │   ├── CapacitorApp-dummy.m
+│       │   │   ├── CapacitorApp-prefix.pch
+│       │   │   ├── CapacitorApp-umbrella.h
+│       │   │   ├── CapacitorApp.modulemap
+│       │   │   └── CapacitorApp.xcconfig
+│       │   ├── CapacitorCordova/
+│       │   │   ├── CapacitorCordova-Info.plist
+│       │   │   ├── CapacitorCordova-dummy.m
+│       │   │   ├── CapacitorCordova-prefix.pch
+│       │   │   ├── CapacitorCordova-umbrella.h
+│       │   │   ├── CapacitorCordova.modulemap
+│       │   │   └── CapacitorCordova.xcconfig
+│       │   ├── CapacitorDevice/
+│       │   │   ├── CapacitorDevice-Info.plist
+│       │   │   ├── CapacitorDevice-dummy.m
+│       │   │   ├── CapacitorDevice-prefix.pch
+│       │   │   ├── CapacitorDevice-umbrella.h
+│       │   │   ├── CapacitorDevice.modulemap
+│       │   │   └── CapacitorDevice.xcconfig
+│       │   ├── Pods-App/
+│       │   │   ├── Pods-App-Info.plist
+│       │   │   ├── Pods-App-dummy.m
+│       │   │   ├── Pods-App-frameworks.sh
+│       │   │   ├── Pods-App-resources.sh
+│       │   │   └── Pods-App.debug.xcconfig
+│       │   ├── Pods-AppTests/
+│       │   │   ├── Pods-AppTests-Info.plist
+│       │   │   ├── Pods-AppTests-dummy.m
+│       │   │   └── Pods-AppTests.debug.xcconfig
+│       │   └── Pods-AppUITests/
+│       │       ├── Pods-AppUITests-Info.plist
+│       │       ├── Pods-AppUITests-dummy.m
+│       │       └── Pods-AppUITests.debug.xcconfig
+│       └── _CodeSignature/
+│           └── CodeResources
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── public/
+│   ├── favicon.ico
+│   ├── placeholder.svg
+│   └── robots.txt
+├── src/
+│   ├── App.tsx
+│   ├── components/
+│   │   ├── AdminInviteUser.tsx
+│   │   ├── AdminUsers.tsx
+│   │   ├── BackButton.tsx
+│   │   ├── Chat.tsx
+│   │   ├── ContentManager.tsx
+│   │   ├── HealingSheets.tsx
+│   │   ├── ProtocolDay.tsx
+│   │   ├── ProtocolItemAck.tsx
+│   │   ├── ProtocolProgress.tsx
+│   │   ├── SiteHeader.tsx
+│   │   └── ui/
+│   │       ├── alert-dialog.tsx
+│   │       ├── badge.tsx
+│   │       ├── button.tsx
+│   │       ├── card.tsx
+│   │       ├── dialog.tsx
+│   │       ├── input.tsx
+│   │       ├── label.tsx
+│   │       ├── scroll-area.tsx
+│   │       ├── select.tsx
+│   │       ├── separator.tsx
+│   │       ├── sheet.tsx
+│   │       ├── table.tsx
+│   │       ├── tabs.tsx
+│   │       ├── textarea.tsx
+│   │       └── toast.tsx
+│   ├── hooks/
+│   │   └── use-toast.ts
+│   ├── index.css
+│   ├── lib/
+│   │   ├── api.ts
+│   │   ├── apiBase.ts
+│   │   ├── auth.ts
+│   │   ├── firebase.ts
+│   │   ├── protocolAcksApi.ts
+│   │   ├── protocolItemAcksApi.ts
+│   │   └── utils.ts
+│   ├── main.tsx
+│   ├── pages/
+│   │   ├── Admin.tsx
+│   │   ├── CheckIn.tsx
+│   │   ├── Login.tsx
+│   │   ├── Protocol.tsx
+│   │   └── Protocols.tsx
+│   └── vite-env.d.ts
+├── tailwind.config.js
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 ---
 
 3. Backend Details
