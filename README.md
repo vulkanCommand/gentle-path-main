@@ -105,6 +105,8 @@ gentle-path-main/
 - Auth: Firebase Admin SDK
 - DB: PostgreSQL
 - Storage: Local (`/tmp`) on Cloud Run
+- Google Cloud Storage (GCS)
+- Accessed through a storage abstraction layer (upload_store)
 - Hosting: Google Cloud Run
 
 ### Environment Variables
