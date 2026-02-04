@@ -520,7 +520,7 @@ npm run dev
 ```
 
 ```ini
-VITE_API_BASE_URL=https://<cloud-run-url>
+VITE_API_BASE_URL=https://gentle-path-api-883951071472.us-central1.run.app
 ```
 
 ---
@@ -533,7 +533,7 @@ VITE_API_BASE_URL=https://<cloud-run-url>
 
 Backend URL example:
 ```text
-https://gentle-path-api-xxxxx-uc.a.run.app
+https://gentle-path-api-883951071472.us-central1.run.app
 ```
 
 ---
@@ -551,9 +551,11 @@ https://gentle-path-api-xxxxx-uc.a.run.app
 9. Common Gotchas
 -----------------
 
-- Always refresh Firebase token
-- Cloud Run allows writes only to `/tmp`
-- All APIs require `Authorization: Bearer <token>`
+- Always refresh Firebase ID token before API calls
+- Cloud Run containers are stateless; persistent files are stored in Google Cloud Storage (GCS)
+- Do not rely on local filesystem for long-term storage
+- All protected APIs require `Authorization: Bearer <Firebase ID Token>`
+
 
 ---
 
@@ -561,7 +563,7 @@ https://gentle-path-api-xxxxx-uc.a.run.app
 -----------------------
 
 Backend completed and maintained by:  
-**Kalyan**
+**My_Manager**
 
 Frontend Web: Complete  
 iOS App: Implemented by iOS team using existing APIs
