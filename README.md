@@ -281,26 +281,6 @@ gentle-path-main/
 └── vite.config.ts
 ---
 
-3. Backend Details
-------------------
-
-### Tech Stack
-- Language: Go
-- Framework: Gin
-- Auth: Firebase Admin SDK
-- DB: PostgreSQL
-- Storage: Local (`/tmp`) on Cloud Run
-- Google Cloud Storage (GCS)
-- Accessed through a storage abstraction layer (upload_store)
-- Hosting: Google Cloud Run
-
-### Environment Variables
-
-```ini
-DATABASE_URL=postgres://user:pass@host:5432/dbname
-FIREBASE_PROJECT_ID=xxxxx
-GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json
-GIN_MODE=release
 ```
 
 ---
