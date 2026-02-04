@@ -1,4 +1,4 @@
-Gentle Path – Full Stack Project Overview
+Full Stack Project Overview
 =========================================
 
 Gentle Path is a wellness-focused application built with a **React web frontend** and a **Go (Gin) backend**, using **Firebase Authentication**, **PostgreSQL**, and deployed on **Google Cloud Run (GCP)**.
