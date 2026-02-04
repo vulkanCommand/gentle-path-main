@@ -305,41 +305,177 @@ GIN_MODE=release
 
 ---
 
-4. Backend APIs
+Backend API Reference (Complete & Sorted)
+=========================================
+
+Base URL
+--------
+All APIs are served from the Cloud Run backend.
+
+[https://gentle-path-api-xxxxx-uc.a.run.ap](https://gentle-path-api-883951071472.us-central1.run.app/)
+
+All `/api/*` routes require:
+Authorization: Bearer <Firebase ID Token>
+
+---
+
+Health & System
 ---------------
 
-All APIs are under `/api` and **require Firebase auth** unless noted.
+GET /health  
+Purpose:
+- Health check for uptime monitoring
+- Used by Cloud Run and manual checks
 
-### Health
-```bash
-GET /health
-```
+---
 
-### Check-ins
-```bash
-POST /api/checkins
-GET /api/checkins
-GET /api/admin/checkins
-```
+Authentication & User Context
+-----------------------------
 
-### Protocols
-```bash
-GET /api/protocols
-GET /api/protocols/:id
-```
+Authentication is handled via Firebase.
+There are no custom login/logout APIs.
 
-### Protocol Acknowledgements
-```bash
-POST /api/protocols/ack
-GET /api/protocols/item-acks
-POST /api/protocols/item-acks
-```
+Backend responsibilities:
+- Verify Firebase ID token
+- Extract user UID
+- Enforce access control
 
-### Uploads
-```bash
-POST /api/uploads
-GET /uploads/:file
-```
+---
+
+User Check-ins
+--------------
+
+POST /api/checkins  
+Purpose:
+- Create a daily wellness check-in for the logged-in user
+
+GET /api/checkins  
+Purpose:
+- Fetch check-ins for the logged-in user
+
+GET /api/admin/checkins  
+Purpose:
+- Admin-only
+- Fetch all user check-ins across the system
+
+---
+
+Protocols (Healing Programs)
+----------------------------
+
+GET /api/protocols  
+Purpose:
+- Fetch all available healing protocols
+
+GET /api/protocols/:id  
+Purpose:
+- Fetch a single protocol with its structure
+
+---
+
+Protocol Day Acknowledgement
+----------------------------
+
+POST /api/protocols/ack  
+Purpose:
+- Mark a full protocol day as completed by the user
+
+---
+
+Protocol Item Acknowledgement
+-----------------------------
+
+GET /api/protocols/item-acks  
+Purpose:
+- Fetch item-level acknowledgements for the logged-in user
+
+POST /api/protocols/item-acks  
+Purpose:
+- Acknowledge completion of a specific protocol item
+
+---
+
+Healing Sheets (PDFs / Files)
+-----------------------------
+
+POST /api/uploads  
+Purpose:
+- Upload healing sheet PDFs (admin/content use)
+- Files stored in persistent cloud storage
+
+GET /uploads/:file  
+Purpose:
+- Serve uploaded healing sheet files publicly
+
+---
+
+Content Management
+------------------
+
+GET /api/content  
+Purpose:
+- Fetch dynamic content used in the app (guidance, messages)
+
+POST /api/content  
+Purpose:
+- Admin-only
+- Create or update content
+
+---
+
+Chat / Messages
+---------------
+
+POST /api/chat  
+Purpose:
+- Send user message to backend
+- Used for guided chat or AI-assisted responses
+
+GET /api/messages  
+Purpose:
+- Fetch user message history
+
+---
+
+Admin – Users
+-------------
+
+GET /api/admin/users  
+Purpose:
+- Admin-only
+- Fetch all registered users
+
+POST /api/admin/users/invite  
+Purpose:
+- Admin-only
+- Invite a new user into the system
+
+GET /api/admin/users/:id  
+Purpose:
+- Admin-only
+- Fetch details for a specific user
+
+---
+
+Summary
+-------
+
+Total API Categories:
+- Health
+- Check-ins
+- Protocols
+- Protocol Acknowledgements
+- Healing Sheets
+- Content
+- Chat / Messages
+- Admin Users
+
+All APIs:
+- Use Firebase Authentication
+- Return JSON
+- Are shared by Web and iOS apps
+- Are production-ready and deployed on Google Cloud Run
+
 
 ---
 
