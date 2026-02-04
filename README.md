@@ -29,7 +29,9 @@ This document explains:
 - Go (Gin framework)
 - Firebase Admin SDK for auth verification
 - PostgreSQL database
-- File storage for PDFs (healing sheets)
+- File storage for PDFs (healing sheets) Bofore we used to have this but later we upgraded to GCS
+- Google Cloud Storage (GCS)
+- Accessed through a storage abstraction layer (upload_store)
 - Deployed on Google Cloud Run
 
 **Auth Flow**
